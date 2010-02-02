@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -19,6 +19,22 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	 */
 	CKEDITOR.tools =
 	{
+		/**
+		 * Compare the elements of two arrays.
+		 * @param {Array} arrayA An array to be compared.
+		 * @param {Array} arrayB The other array to be compared.
+		 * @returns {Boolean} "true" is the arrays have the same lenght and
+		 *		their elements match.
+		 * @example
+		 * var a = [ 1, 'a', 3 ];
+		 * var b = [ 1, 3, 'a' ];
+		 * var c = [ 1, 'a', 3 ];
+		 * var d = [ 1, 'a', 3, 4 ];
+		 *
+		 * alert( CKEDITOR.tools.arrayCompare( a, b ) );  // false
+		 * alert( CKEDITOR.tools.arrayCompare( a, c ) );  // true
+		 * alert( CKEDITOR.tools.arrayCompare( a, d ) );  // false
+		 */
 		arrayCompare : function( arrayA, arrayB )
 		{
 			if ( !arrayA && !arrayB )
@@ -80,7 +96,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				|| ( obj instanceof String )
 				|| ( obj instanceof Number )
 				|| ( obj instanceof Boolean )
-				|| ( obj instanceof Date ) )
+				|| ( obj instanceof Date )
+				|| ( obj instanceof RegExp) )
 			{
 				return obj;
 			}
@@ -95,6 +112,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 
 			return clone;
+		},
+
+		/**
+		 * Turn the first letter of string to upper-case.
+		 * @param {String} str
+		 */
+		capitalize: function( str )
+		{
+			return str.charAt( 0 ).toUpperCase() + str.substring( 1 ).toLowerCase();
 		},
 
 		/**
@@ -189,6 +215,15 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			return ( !!object && object instanceof Array );
 		},
 
+		isEmpty : function ( object )
+		{
+			for ( var i in object )
+			{
+				if ( object.hasOwnProperty( i ) )
+					return false;
+			}
+			return true;
+		},
 		/**
 		 * Transforms a CSS property name to its relative DOM style name.
 		 * @param {String} cssName The CSS property name.
@@ -218,6 +253,27 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				}
 			};
 		} )(),
+
+		/**
+		 * Build the HTML snippet of a set of <style>/<link>.
+		 * @param css {String|Array} Each of which are url (absolute) of a CSS file or
+		 * a trunk of style text.
+		 */
+		buildStyleHtml : function ( css )
+		{
+			css = [].concat( css );
+			var item, retval = [];
+			for ( var i = 0; i < css.length; i++ )
+			{
+				item = css[ i ];
+				// Is CSS style text ?
+				if ( /@import|[{}]/.test(item) )
+					retval.push('<style>' + item + '</style>');
+				else
+					retval.push('<link type="text/css" rel=stylesheet href="' + item + '">');
+			}
+			return retval.join( '' );
+		},
 
 		/**
 		 * Replace special HTML characters in a string with their relative HTML
@@ -264,6 +320,19 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			this.htmlEncode = fix3;
 
 			return this.htmlEncode( text );
+		},
+
+		/**
+		 * Replace characters can't be represented through CSS Selectors string
+		 * by CSS Escape Notation where the character escape sequence consists
+		 * of a backslash character (\) followed by the orginal characters.
+		 * Ref: http://www.w3.org/TR/css3-selectors/#grammar
+		 * @param cssSelectText
+		 * @return the escaped selector text.
+		 */
+		escapeCssSelector : function( cssSelectText )
+		{
+			return cssSelectText.replace( /[\s#:.,$*^\[\]()~=+>]/g, '\\$&' );
 		},
 
 		/**
@@ -439,6 +508,24 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					return -1;
 				},
 
+		/**
+		 * Creates a function that will always execute in the context of a
+		 * specified object.
+		 * @param {Function} func The function to be executed.
+		 * @param {Object} obj The object to which bind the execution context.
+		 * @returns {Function} The function that can be used to execute the
+		 *		"func" function in the context of "obj".
+		 * @example
+		 * var obj = { text : 'My Object' };
+		 *
+		 * function alertText()
+		 * {
+		 *     alert( this.text );
+		 * }
+		 *
+		 * var newFunc = <b>CKEDITOR.tools.bind( alertText, obj )</b>;
+		 * newFunc();  // Alerts "My Object".
+		 */
 		bind : function( func, obj )
 		{
 			return function() { return func.apply( obj, arguments ); };
@@ -450,11 +537,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 * <ul>
 		 * <li> Static fields </li>
 		 * <li> Private fields </li>
-		 * <li> Public(prototype) fields </li>
+		 * <li> Public (prototype) fields </li>
 		 * <li> Chainable base class constructor </li>
 		 * </ul>
-		 *
-		 * @param {Object} definiton (Optional)The class definiton object.
+		 * @param {Object} definiton The class definiton object.
+		 * @returns {Function} A class-like JavaScript function.
 		 */
 		createClass : function( definition )
 		{
@@ -507,6 +594,22 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			return $;
 		},
 
+		/**
+		 * Creates a function reference that can be called later using
+		 * CKEDITOR.tools.callFunction. This approach is specially useful to
+		 * make DOM attribute function calls to JavaScript defined functions.
+		 * @param {Function} fn The function to be executed on call.
+		 * @param {Object} [scope] The object to have the context on "fn" execution.
+		 * @returns {Number} A unique reference to be used in conjuction with
+		 *		CKEDITOR.tools.callFunction.
+		 * @example
+		 * var ref = <b>CKEDITOR.tools.addFunction</b>(
+		 *     function()
+		 *     {
+		 *         alert( 'Hello!');
+		 *     });
+		 * CKEDITOR.tools.callFunction( ref );  // Hello!
+		 */
 		addFunction : function( fn, scope )
 		{
 			return functions.push( function()
@@ -515,10 +618,26 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				}) - 1;
 		},
 
-		callFunction : function( index )
+		/**
+		 * Executes a function based on the reference created with
+		 * CKEDITOR.tools.addFunction.
+		 * @param {Number} ref The function reference created with
+		 *		CKEDITOR.tools.addFunction.
+		 * @param {[Any,[Any,...]} params Any number of parameters to be passed
+		 *		to the executed function.
+		 * @returns {Any} The return value of the function.
+		 * @example
+		 * var ref = CKEDITOR.tools.addFunction(
+		 *     function()
+		 *     {
+		 *         alert( 'Hello!');
+		 *     });
+		 * <b>CKEDITOR.tools.callFunction( ref )</b>;  // Hello!
+		 */
+		callFunction : function( ref )
 		{
-			var fn = functions[ index ];
-			return fn.apply( window, Array.prototype.slice.call( arguments, 1 ) );
+			var fn = functions[ ref ];
+			return fn && fn.apply( window, Array.prototype.slice.call( arguments, 1 ) );
 		},
 
 		cssLength : (function()
@@ -533,6 +652,22 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		repeat : function( str, times )
 		{
 			return new Array( times + 1 ).join( str );
+		},
+
+		tryThese : function()
+		{
+			var returnValue;
+			for ( var i = 0, length = arguments.length; i < length; i++ )
+			{
+				var lambda = arguments[i];
+				try
+				{
+					returnValue = lambda();
+					break;
+				}
+				catch (e) {}
+			}
+			return returnValue;
 		}
 	};
 })();

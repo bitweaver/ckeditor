@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -47,7 +47,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				return ( ( !movingOut || !limitLTR.equals( node ) )
 					&& ( !blockerLTR || !node.equals( blockerLTR ) )
-					&& ( node.type != CKEDITOR.NODE_ELEMENT || node.getName() != 'body' ) );
+					&& ( node.type != CKEDITOR.NODE_ELEMENT || !movingOut || node.getName() != 'body' ) );
 			};
 		}
 
@@ -62,7 +62,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			{
 				return ( ( !movingOut || !limitRTL.equals( node ) )
 					&& ( !blockerRTL || !node.equals( blockerRTL ) )
-					&& ( node.type != CKEDITOR.NODE_ELEMENT || node.getName() != 'body' ) );
+					&& ( node.type != CKEDITOR.NODE_ELEMENT || !movingOut || node.getName() != 'body' ) );
 			};
 		}
 
@@ -78,7 +78,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				if ( stopGuard( node, movingOut ) === false )
 					return false;
 
-				return userGuard( node );
+				return userGuard( node, movingOut );
 			};
 		}
 		else
@@ -396,7 +396,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	};
 
 	/**
-	 * Whether the node contains only white-spaces characters.
+	 * Whether the node is a text node containing only whitespaces characters.
 	 * @param isReject
 	 */
 	CKEDITOR.dom.walker.whitespaces = function( isReject )
@@ -408,4 +408,44 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			return isReject ^ isWhitespace;
 		};
 	};
+
+	/**
+	 * Whether the node is invisible in wysiwyg mode.
+	 * @param isReject
+	 */
+	CKEDITOR.dom.walker.invisible = function( isReject )
+	{
+		var whitespace = CKEDITOR.dom.walker.whitespaces();
+		return function( node )
+		{
+			// Nodes that take no spaces in wysiwyg:
+			// 1. White-spaces but not including NBSP;
+			// 2. Empty inline elements, e.g. <b></b> we're checking here
+			// 'offsetHeight' instead of 'offsetWidth' for properly excluding
+			// all sorts of empty paragraph, e.g. <br />.
+			var isInvisible = whitespace( node ) || node.is && !node.$.offsetHeight;
+			return isReject ^ isInvisible;
+		};
+	};
+
+	var tailNbspRegex = /^[\t\r\n ]*(?:&nbsp;|\xa0)$/,
+		isNotWhitespaces = CKEDITOR.dom.walker.whitespaces( true ),
+		isNotBookmark = CKEDITOR.dom.walker.bookmark( false, true ),
+		fillerEvaluator = function( element )
+		{
+			return isNotBookmark( element ) && isNotWhitespaces( element );
+		};
+
+	// Check if there's a filler node at the end of an element, and return it.
+	CKEDITOR.dom.element.prototype.getBogus = function ()
+	{
+		var tail = this.getLast( fillerEvaluator );
+		if ( tail && ( !CKEDITOR.env.ie ? tail.is && tail.is( 'br' )
+				: tail.getText && tailNbspRegex.test( tail.getText() ) ) )
+		{
+			return tail;
+		}
+		return false;
+	};
+
 })();

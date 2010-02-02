@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -385,14 +385,7 @@ CKEDITOR.lang['de'] =
 		vSpace	: 'Vertikal-Abstand',
 		align		: 'Ausrichtung',
 		alignLeft	: 'Links',
-		alignAbsBottom: 'Abs Unten',
-		alignAbsMiddle: 'Abs Mitte',
-		alignBaseline	: 'Baseline',
-		alignBottom	: 'Unten',
-		alignMiddle	: 'Mitte',
 		alignRight	: 'Rechts',
-		alignTextTop	: 'Text Oben',
-		alignTop	: 'Oben',
 		preview	: 'Vorschau',
 		alertUrl	: 'Bitte geben Sie die Bild-URL an',
 		linkTab	: 'Link',
@@ -513,11 +506,10 @@ CKEDITOR.lang['de'] =
 
 	pastefromword :
 	{
+		confirmCleanup : 'Der Text, den Sie einfügen möchten, scheint aus MS-Word kopiert zu sein. Möchten Sie ihn zuvor bereinigen lassen?',
 		toolbar : 'aus MS-Word einfügen',
 		title : 'aus MS-Word einfügen',
-		advice : 'Bitte fügen Sie den Text in der folgenden Box über die Tastatur (mit <STRONG>Strg+V</STRONG>) ein und bestätigen Sie mit <STRONG>OK</STRONG>.',
-		ignoreFontFace : 'Ignoriere Schriftart-Definitionen',
-		removeStyle : 'Entferne Style-Definitionen'
+		error : 'It was not possible to clean up the pasted data due to an internal error' // MISSING
 	},
 
 	pasteText :
@@ -566,6 +558,23 @@ CKEDITOR.lang['de'] =
 		tag_div : 'Normal (DIV)'
 	},
 
+	div :
+	{
+		title				: 'Create Div Container', // MISSING
+		toolbar				: 'Create Div Container', // MISSING
+		cssClassInputLabel	: 'Stylesheet Classes', // MISSING
+		styleSelectLabel	: 'Style', // MISSING
+		IdInputLabel		: 'Id', // MISSING
+		languageCodeInputLabel	: ' Language Code', // MISSING
+		inlineStyleInputLabel	: 'Inline Style', // MISSING
+		advisoryTitleInputLabel	: 'Advisory Title', // MISSING
+		langDirLabel		: 'Language Direction', // MISSING
+		langDirLTRLabel		: 'Left to Right (LTR)', // MISSING
+		langDirRTLLabel		: 'Right to Left (RTL)', // MISSING
+		edit				: 'Edit Div', // MISSING
+		remove				: 'Remove Div' // MISSING
+  	},
+
 	font :
 	{
 		label : 'Schriftart',
@@ -592,46 +601,46 @@ CKEDITOR.lang['de'] =
 
 	colors :
 	{
-		'000' : 'Black',
-		'800000' : 'Maroon',
-		'8B4513' : 'Saddle Brown',
-		'2F4F4F' : 'Dark Slate Gray',
-		'008080' : 'Teal',
+		'000' : 'Schwarz',
+		'800000' : 'Kastanienbraun',
+		'8B4513' : 'Braun',
+		'2F4F4F' : 'Dunkles Schiefergrau',
+		'008080' : 'Blaugrün',
 		'000080' : 'Navy',
 		'4B0082' : 'Indigo',
-		'696969' : 'Dim Gray',
-		'B22222' : 'Fire Brick',
-		'A52A2A' : 'Brown',
-		'DAA520' : 'Golden Rod',
-		'006400' : 'Dark Green',
-		'40E0D0' : 'Turquoise',
-		'0000CD' : 'Medium Blue',
-		'800080' : 'Purple',
-		'808080' : 'Gray',
-		'F00' : 'Red',
-		'FF8C00' : 'Dark Orange',
+		'696969' : 'Dunkelgrau',
+		'B22222' : 'Ziegelrot',
+		'A52A2A' : 'Braun',
+		'DAA520' : 'Goldgelb',
+		'006400' : 'Dunkelgrün',
+		'40E0D0' : 'Türkis',
+		'0000CD' : 'Medium Blau',
+		'800080' : 'Lila',
+		'808080' : 'Grau',
+		'F00' : 'Rot',
+		'FF8C00' : 'Dunkelorange',
 		'FFD700' : 'Gold',
-		'008000' : 'Green',
+		'008000' : 'Grün',
 		'0FF' : 'Cyan',
-		'00F' : 'Blue',
-		'EE82EE' : 'Violet',
-		'A9A9A9' : 'Dark Gray',
-		'FFA07A' : 'Light Salmon',
+		'00F' : 'Blau',
+		'EE82EE' : 'Hellviolett',
+		'A9A9A9' : 'Dunkelgrau',
+		'FFA07A' : 'Helles Lachsrosa',
 		'FFA500' : 'Orange',
-		'FFFF00' : 'Yellow',
+		'FFFF00' : 'Gelb',
 		'00FF00' : 'Lime',
-		'AFEEEE' : 'Pale Turquoise',
-		'ADD8E6' : 'Light Blue',
-		'DDA0DD' : 'Plum',
-		'D3D3D3' : 'Light Grey',
-		'FFF0F5' : 'Lavender Blush',
-		'FAEBD7' : 'Antique White',
-		'FFFFE0' : 'Light Yellow',
-		'F0FFF0' : 'Honeydew',
-		'F0FFFF' : 'Azure',
-		'F0F8FF' : 'Alice Blue',
-		'E6E6FA' : 'Lavender',
-		'FFF' : 'White'
+		'AFEEEE' : 'Blaß-Türkis',
+		'ADD8E6' : 'Hellblau',
+		'DDA0DD' : 'Pflaumenblau',
+		'D3D3D3' : 'Hellgrau',
+		'FFF0F5' : 'Lavendel',
+		'FAEBD7' : 'Antik Weiß',
+		'FFFFE0' : 'Hellgelb',
+		'F0FFF0' : 'Honigtau',
+		'F0FFFF' : 'Azurblau',
+		'F0F8FF' : 'Alice Blau',
+		'E6E6FA' : 'Lavendel',
+		'FFF' : 'Weiß'
 	},
 
 	scayt :
@@ -681,5 +690,8 @@ CKEDITOR.lang['de'] =
 		highlight : 'Highlight', // MISSING
 		selected : 'Selected', // MISSING
 		clear : 'Clear' // MISSING
-	}
+	},
+
+	toolbarCollapse : 'Collapse Toolbar', // MISSING
+	toolbarExpand : 'Expand Toolbar' // MISSING
 };

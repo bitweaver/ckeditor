@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -38,7 +38,7 @@ CKEDITOR.lang['ar'] =
 	newPage			: 'صفحة جديدة',
 	save			: 'حفظ',
 	preview			: 'معاينة الصفحة',
-	cut			: 'قص',
+	cut				: 'قص',
 	copy			: 'نسخ',
 	paste			: 'لصق',
 	print			: 'طباعة',
@@ -46,11 +46,11 @@ CKEDITOR.lang['ar'] =
 	bold			: 'غامق',
 	italic			: 'مائل',
 	selectAll		: 'تحديد الكل',
-	removeFormat	        : 'إزالة التنسيقات',
+	removeFormat	: 'إزالة التنسيقات',
 	strike			: 'يتوسطه خط',
 	subscript		: 'منخفض',
 	superscript		: 'مرتفع',
-	horizontalrule	        : 'خط فاصل',
+	horizontalrule	: 'خط فاصل',
 	pagebreak		: 'إدخال صفحة جديدة',
 	unlink			: 'إزالة رابط',
 	undo			: 'تراجع',
@@ -59,24 +59,24 @@ CKEDITOR.lang['ar'] =
 	// Common messages and labels.
 	common :
 	{
-		browseServer	        : 'تصفح',
-		url			: 'الرابط',
+		browseServer	: 'تصفح',
+		url				: 'الرابط',
 		protocol		: 'البروتوكول',
 		upload			: 'رفع',
-		uploadSubmit	        : 'أرسل',
+		uploadSubmit	: 'أرسل',
 		image			: 'صورة',
 		flash			: 'فلاش',
 		form			: 'نموذج',
 		checkbox		: 'خانة إختيار',
-		radio		        : 'زر اختيار',
+		radio		: 'زر اختيار',
 		textField		: 'مربع نص',
 		textarea		: 'مساحة نصية',
 		hiddenField		: 'إدراج حقل خفي',
 		button			: 'زر ضغط',
-		select	                : 'اختار',
+		select	: 'اختار',
 		imageButton		: 'زر صورة',
 		notSet			: '<بدون تحديد>',
-		id			: 'الرقم',
+		id				: 'الرقم',
 		name			: 'الاسم',
 		langDir			: 'إتجاه النص',
 		langDirLtr		: 'اليسار لليمين (LTR)',
@@ -84,9 +84,9 @@ CKEDITOR.lang['ar'] =
 		langCode		: 'رمز اللغة',
 		longDescr		: 'الوصف التفصيلى',
 		cssClass		: 'فئات التنسيق',
-		advisoryTitle	        : 'عنوان التقرير',
+		advisoryTitle	: 'عنوان التقرير',
 		cssStyle		: 'نمط',
-		ok			: 'موافق',
+		ok				: 'موافق',
 		cancel			: 'إلغاء الأمر',
 		generalTab		: 'عام',
 		advancedTab		: 'متقدم',
@@ -385,14 +385,7 @@ CKEDITOR.lang['ar'] =
 		vSpace	: 'تباعد عمودي',
 		align		: 'محاذاة',
 		alignLeft	: 'يسار',
-		alignAbsBottom: 'أسفل النص',
-		alignAbsMiddle: 'وسط السطر',
-		alignBaseline	: 'على السطر',
-		alignBottom	: 'أسفل',
-		alignMiddle	: 'وسط',
 		alignRight	: 'يمين',
-		alignTextTop	: 'أعلى النص',
-		alignTop	: 'أعلى',
 		preview	: 'معاينة',
 		alertUrl	: 'فضلاً أكتب الموقع الذي توجد عليه هذه الصورة.',
 		linkTab	: 'الرابط',
@@ -513,11 +506,10 @@ CKEDITOR.lang['ar'] =
 
 	pastefromword :
 	{
+		confirmCleanup : 'يبدو أن النص المراد لصقه منسوخ من برنامج وورد. هل تود تنظيفه قبل الشروع في عملية اللصق؟',
 		toolbar : 'لصق من وورد',
 		title : 'لصق من وورد',
-		advice : 'الصق داخل الصندوق بإستخدام مفاتيح (<STRONG>Ctrl+V</STRONG>) في لوحة المفاتيح، ثم اضغط مفتاح <STRONG>موافق</STRONG>.',
-		ignoreFontFace : 'تجاهل تعريفات أسماء الخطوط',
-		removeStyle : 'إزالة تعريفات الأنماط'
+		error : 'It was not possible to clean up the pasted data due to an internal error' // MISSING
 	},
 
 	pasteText :
@@ -565,6 +557,23 @@ CKEDITOR.lang['ar'] =
 		tag_h6 : 'العنوان  6',
 		tag_div : 'عادي (DIV)'
 	},
+
+	div :
+	{
+		title				: 'Create Div Container', // MISSING
+		toolbar				: 'Create Div Container', // MISSING
+		cssClassInputLabel	: 'Stylesheet Classes', // MISSING
+		styleSelectLabel	: 'Style', // MISSING
+		IdInputLabel		: 'Id', // MISSING
+		languageCodeInputLabel	: ' Language Code', // MISSING
+		inlineStyleInputLabel	: 'Inline Style', // MISSING
+		advisoryTitleInputLabel	: 'Advisory Title', // MISSING
+		langDirLabel		: 'Language Direction', // MISSING
+		langDirLTRLabel		: 'Left to Right (LTR)', // MISSING
+		langDirRTLLabel		: 'Right to Left (RTL)', // MISSING
+		edit				: 'Edit Div', // MISSING
+		remove				: 'Remove Div' // MISSING
+  	},
 
 	font :
 	{
@@ -681,5 +690,8 @@ CKEDITOR.lang['ar'] =
 		highlight : 'إلقاء الضوء',
 		selected : 'مُختار',
 		clear : 'مسح'
-	}
+	},
+
+	toolbarCollapse : 'Collapse Toolbar', // MISSING
+	toolbarExpand : 'Expand Toolbar' // MISSING
 };

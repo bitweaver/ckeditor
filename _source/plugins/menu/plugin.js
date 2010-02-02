@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -67,11 +67,11 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 			{
 				var menu = this._.subMenu,
 					item = this.items[ index ],
-					subItems = item.getItems && item.getItems();
+					subItemDefs = item.getItems && item.getItems();
 
 				// If this item has no subitems, we just hide the submenu, if
 				// available, and return back.
-				if ( !subItems )
+				if ( !subItemDefs )
 				{
 					this._.panel.hideChild();
 					return;
@@ -89,9 +89,14 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 				}
 
 				// Add all submenu items to the menu.
-				for ( var itemName in subItems )
+				for ( var subItemName in subItemDefs )
 				{
-					menu.add( this.editor.getMenuItem( itemName ) );
+					var subItem = this.editor.getMenuItem( subItemName );
+					if ( subItem )
+					{
+						subItem.state = subItemDefs[ subItemName ];
+						menu.add( subItem );
+					}
 				}
 
 				// Get the element representing the current item.
@@ -132,7 +137,7 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 				{
 					panel = this._.panel = new CKEDITOR.ui.floatPanel( this.editor, CKEDITOR.document.getBody(),
 						{
-							css : [ CKEDITOR.getUrl( editor.skinPath + 'editor.css' ) ],
+							css : editor.skin.editor.css,
 							level : this._.level - 1,
 							className : editor.skinClass + ' cke_contextmenu'
 						},
@@ -376,4 +381,4 @@ CKEDITOR.config.menu_groups =
 	'form,' +
 	'tablecell,tablecellproperties,tablerow,tablecolumn,table,'+
 	'anchor,link,image,flash,' +
-	'checkbox,radio,textfield,hiddenfield,imagebutton,button,select,textarea';
+	'checkbox,radio,textfield,hiddenfield,imagebutton,button,select,textarea,div';

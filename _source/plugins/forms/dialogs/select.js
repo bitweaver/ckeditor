@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 CKEDITOR.dialog.add( 'select', function( editor )
@@ -160,7 +160,18 @@ CKEDITOR.dialog.add( 'select', function( editor )
 			this.commitContent( element );
 
 			if ( isInsertMode )
-				editor.insertElement( element );
+			{
+				editor.insertElement(element);
+				if( CKEDITOR.env.ie )
+				{
+					var sel = editor.getSelection(),
+						bms = sel.createBookmarks();
+					setTimeout(function ()
+					{
+						sel.selectBookmarks( bms );
+					}, 0 );
+				}
+			}
 		},
 		contents : [
 			{

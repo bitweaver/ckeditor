@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -9,14 +9,25 @@ body .cke_dialog
 	visibility: visible;
 }
 
+/* Force Gecko to consider table as positioned */
+.cke_skin_v2 table.cke_dialog.cke_browser_gecko
+{
+	display:block;
+}
+
 .cke_skin_v2 .cke_dialog_body
 {
 	margin-left: 16px;
 	margin-right: 16px;
 	margin-top: 2px;
 	margin-bottom: 20px;
-	position: relative;
 	z-index: 1;
+
+	/* 'cke_dialog' element has been fixed positioned in all but IE6, while we
+		need it to be positioned to hold e.g. close button. */
+	position: relative;
+	_position: static;
+
 }
 
 .cke_skin_v2 .cke_dialog_tl,
@@ -32,6 +43,8 @@ body .cke_dialog
 
 	/* IE6 does not support full color transparent PNG. */
 	_background-image: url(images/sprites_ie6.png);
+	/* Dialog corner parts require a negative z-index to avoid covering dialog body. (#4954) */
+	_z-index: -1;
 }
 
 .cke_skin_v2 .cke_dialog_tl
@@ -637,6 +650,12 @@ body .cke_dialog
 	font-weight: bold;
 	position: relative;
 	top: 3px;
+}
+.cke_skin_v2 .cke_hc a.cke_btn_locked,
+.cke_skin_v2 .cke_hc a.cke_btn_unlocked,
+.cke_skin_v2 .cke_hc a.cke_btn_reset
+{
+	border-style: solid;
 }
 
 .cke_skin_v2 a.cke_smile img

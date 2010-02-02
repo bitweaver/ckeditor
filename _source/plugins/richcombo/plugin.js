@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -283,7 +283,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 
 			var textElement = this.document.getById( 'cke_' + this.id + '_text' );
 
-			if ( !value )
+			if ( !( value || text ) )
 			{
 				text = this.label;
 				textElement.addClass( 'cke_inline_label' );

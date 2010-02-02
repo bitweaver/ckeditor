@@ -1,6 +1,9 @@
-/* Start of BITWEAVER toolbar sets */
+// $header$
 
-CKConfig.ToolbarSets["Supported"] = [
+CKEDITOR.editorConfig = function( config ) {
+
+/* Start of BITWEAVER toolbar sets */
+config.toolbar_Supported = [
 	['Source','-','Preview'],
 	['Cut','Copy','Paste','PasteText','PasteWord','-','Print','SpellCheck'],
 	['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
@@ -16,7 +19,7 @@ CKConfig.ToolbarSets["Supported"] = [
 	['FitWindow','-','About']
 ];
 
-CKConfig.ToolbarSets["Beginner"] = [
+config.toolbar_Beginner = [
 	['Bold','Italic','Underline'],
 	['OrderedList','UnorderedList'],
 	['Link','Unlink','Anchor'],
@@ -24,7 +27,7 @@ CKConfig.ToolbarSets["Beginner"] = [
 	['FitWindow','-','About']
 ];
 
-CKConfig.ToolbarSets["Intermediate"] = [
+config.toolbar_Intermediate = [
 	['Cut','Copy','Paste','PasteText','PasteWord'],
 	['Undo','Redo','-','Find','Replace','-','SelectAll'],
 	'/',
@@ -38,7 +41,7 @@ CKConfig.ToolbarSets["Intermediate"] = [
 	['FitWindow','-','About']
 ];
 
-CKConfig.ToolbarSets["Advanced"] = [
+config.toolbar_Advanced = [
 	['Source','-','Preview'],
 	['Cut','Copy','Paste','PasteText','PasteWord'],
 	['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
@@ -54,7 +57,7 @@ CKConfig.ToolbarSets["Advanced"] = [
 	['FitWindow','-','About']
 ];
 
-FCKConfig.ToolbarSets["All"] = [
+config.toolbar_All = [
 	['Source','DocProps','-','Save','NewPage','Preview','-','Templates'],
 	['Cut','Copy','Paste','PasteText','PasteWord','-','Print','SpellCheck'],
 	['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
@@ -78,3 +81,4 @@ FCKConfig.ToolbarSets["All"] = [
 
 /* END of BITWEAVER toolbar sets */
 
+}; // End CKEDITOR.editorConfig function

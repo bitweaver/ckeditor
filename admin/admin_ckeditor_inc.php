@@ -42,7 +42,7 @@ $formSkin = array( 'ckedit_skin' => array(
 		)
 );
 $gBitSmarty->assign( 'formSkin', $formSkin );
-$gBitSmarty->assign( 'formSkinChoices', array('default', 'silver', 'office2003'));
+$gBitSmarty->assign( 'formSkinChoices', array('kama', 'office2003', 'v2'));
 
 
 if( !empty( $_REQUEST['change_prefs'] ) ) {

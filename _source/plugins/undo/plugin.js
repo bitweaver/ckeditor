@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -130,11 +130,24 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			this.contents = this.contents.replace( /\s+_cke_expando=".*?"/g, '' );
 	}
 
+	// Attributes that browser may changing them when setting via innerHTML.
+	var protectedAttrs = /\b(?:href|src|name)="[^"]*?"/gi;
+
 	Image.prototype =
 	{
 		equals : function( otherImage, contentOnly )
 		{
-			if ( this.contents != otherImage.contents )
+			var thisContents = this.contents,
+				otherContents = otherImage.contents;
+
+			// For IE6/7 : Comparing only the protected attribute values but not the original ones.(#4522)
+			if( CKEDITOR.env.ie && ( CKEDITOR.env.ie7Compat || CKEDITOR.env.ie6Compat ) )
+			{
+				thisContents = thisContents.replace( protectedAttrs, '' );
+				otherContents = otherContents.replace( protectedAttrs, '' );
+			}
+
+			if( thisContents != otherContents )
 				return false;
 
 			if ( contentOnly )
@@ -179,6 +192,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		this.reset();
 	}
 
+
+	var editingKeyCodes = { /*Backspace*/ 8:1, /*Delete*/ 46:1 },
+		modifierKeyCodes = { /*Shift*/ 16:1, /*Ctrl*/ 17:1, /*Alt*/ 18:1 },
+		navigationKeyCodes = { 37:1, 38:1, 39:1, 40:1 };  // Arrows: L, T, R, B
+
 	UndoManager.prototype =
 	{
 		/**
@@ -187,32 +205,26 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 */
 		type : function( event )
 		{
-			var keystroke = event && event.data.getKeystroke(),
-
-				// Backspace, Delete
-				modifierCodes = { 8:1, 46:1 },
-				// Keystrokes which will modify the contents.
-				isModifier = keystroke in modifierCodes,
-				wasModifier = this.lastKeystroke in modifierCodes,
-				lastWasSameModifier = isModifier && keystroke == this.lastKeystroke,
-
-				// Arrows: L, T, R, B
-				resetTypingCodes = { 37:1, 38:1, 39:1, 40:1 },
+			var keystroke = event && event.data.getKey(),
+				isModifierKey = keystroke in modifierKeyCodes,
+				isEditingKey = keystroke in editingKeyCodes,
+				wasEditingKey = this.lastKeystroke in editingKeyCodes,
+				sameAsLastEditingKey = isEditingKey && keystroke == this.lastKeystroke,
 				// Keystrokes which navigation through contents.
-				isReset = keystroke in resetTypingCodes,
-				wasReset = this.lastKeystroke in resetTypingCodes,
+				isReset = keystroke in navigationKeyCodes,
+				wasReset = this.lastKeystroke in navigationKeyCodes,
 
 				// Keystrokes which just introduce new contents.
-				isContent = ( !isModifier && !isReset ),
+				isContent = ( !isEditingKey && !isReset ),
 
 				// Create undo snap for every different modifier key.
-				modifierSnapshot = ( isModifier && !lastWasSameModifier ),
+				modifierSnapshot = ( isEditingKey && !sameAsLastEditingKey ),
 				// Create undo snap on the following cases:
-				// 1. Just start to type.
+				// 1. Just start to type .
 				// 2. Typing some content after a modifier.
 				// 3. Typing some content after make a visible selection.
-				startedTyping = !this.typing
-					|| ( isContent && ( wasModifier || wasReset ) );
+				startedTyping = !( isModifierKey || this.typing )
+					|| ( isContent && ( wasEditingKey || wasReset ) );
 
 			if ( startedTyping || modifierSnapshot )
 			{
@@ -230,6 +242,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						if ( beforeTypeImage.contents != currentSnapshot )
 						{
+							// It's safe to now indicate typing state.
+							this.typing = true;
+
 							// This's a special save, with specified snapshot
 							// and without auto 'fireChange'.
 							if ( !this.save( false, beforeTypeImage, false ) )
@@ -250,15 +265,16 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 
 			this.lastKeystroke = keystroke;
+
 			// Create undo snap after typed too much (over 25 times).
-			if ( isModifier )
+			if ( isEditingKey )
 			{
 				this.typesCount = 0;
 				this.modifiersCount++;
 
 				if ( this.modifiersCount > 25 )
 				{
-					this.save();
+					this.save( false, null, false );
 					this.modifiersCount = 1;
 				}
 			}
@@ -269,12 +285,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				if ( this.typesCount > 25 )
 				{
-					this.save();
+					this.save( false, null, false );
 					this.typesCount = 1;
 				}
 			}
 
-			this.typing = true;
 		},
 
 		reset : function()	// Reset the undo stack.

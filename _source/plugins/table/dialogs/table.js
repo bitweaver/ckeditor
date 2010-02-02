@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -68,6 +68,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			},
 			onOk : function()
 			{
+				if ( this._.selectedElement )
+				{
+					var selection = editor.getSelection(),
+						bms = editor.getSelection().createBookmarks();
+				}
+
 				var table = this._.selectedElement || makeElement( 'table' ),
 					me = this,
 					data = {};
@@ -174,22 +180,28 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					// Set the width and height.
 					var styles = [];
 					if ( info.txtHeight )
-						styles.push( 'height:' + info.txtHeight + 'px' );
+						table.setStyle( 'height', CKEDITOR.tools.cssLength( info.txtHeight ) );
+					else
+						table.removeStyle( 'height' );
+
 					if ( info.txtWidth )
 					{
 						var type = info.cmbWidthType || 'pixels';
-						styles.push( 'width:' + info.txtWidth + ( type == 'pixels' ? 'px' : '%' ) );
+						table.setStyle( 'width', info.txtWidth + ( type == 'pixels' ? 'px' : '%' ) );
 					}
-					styles = styles.join( ';' );
-					if ( styles )
-						table.$.style.cssText = styles;
 					else
+						table.removeStyle( 'width' );
+
+					if( !table.getAttribute( 'style' ) )
 						table.removeAttribute( 'style' );
 				}
 
 				// Insert the table element if we're creating one.
 				if ( !this._.selectedElement )
 					editor.insertElement( table );
+				// Properly restore the selection inside table. (#4822)
+				else
+					selection.selectBookmarks( bms );
 
 				return true;
 			},

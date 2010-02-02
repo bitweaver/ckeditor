@@ -1,5 +1,5 @@
-{* $Header: /cvsroot/bitweaver/_ckeditor/templates/header_inc.tpl,v 1.1 2009/11/24 23:57:16 lsces Exp $ *}
-{strip}
+{* $Header: /cvsroot/bitweaver/_ckeditor/templates/header_inc.tpl,v 1.2 2010/02/02 17:54:17 dansut Exp $ *}
+{*strip*}
 {if $gBitUser->hasPermission( 'p_liberty_enter_html' ) && ( $gContent || $gComment ) && $gLibertySystem->mPlugins.bithtml && $gBitSystem->isPackageActive('ckeditor')}
 {if ( $post_comment_request || $post_comment_preview || $comments_ajax ) && $gComment}
 	{assign var=contentObject value=$gComment}
@@ -11,33 +11,29 @@
 			BitCK.instances = [];
 
 			BitCK.CKify = function (name) {ldelim}
-				var oCKeditor = new CKEDITOR( name );
-				{* TODO: Hook things from admin panel in here. *}
-				oCKeditor.BasePath = "{$smarty.const.CKEDITOR_PKG_URL}jscripts/";
-				
-				{* config file? from ckeditor directory, or from theme directory, or standard *}
-				{if $gBitSystem->isFeatureActive('ckeditor_custom_config')}
-					{if is_file($smarty.const.THEMES_STYLE_PATH|cat:"ckeditor/ckconfig.custom.js")}
-						oCKeditor.Config['CustomConfigurationsPath'] = "{$smarty.const.THEMES_STYLE_URL}ckeditor/ckconfig.custom.js";
+				{* CKEDITOR.BasePath = "{$smarty.const.CKEDITOR_PKG_URL}jscripts/";  think this not needed *}
+				var oCKeditor = CKEDITOR.replace( name, {ldelim}customConfig:
+					{if $gBitSystem->isFeatureActive('ckeditor_custom_config')}
+						{if is_file($smarty.const.THEMES_STYLE_PATH|cat:"ckeditor/ckconfig.custom.js")}
+							'{$smarty.const.THEMES_STYLE_URL}ckeditor/ckconfig.custom.js'
+						{else}
+							'{$smarty.const.CKEDITOR_PKG_URL}ckconfig.custom.js'
+						 {/if}
 					{else}
-						oCKeditor.Config['CustomConfigurationsPath'] = "{$smarty.const.CKEDITOR_PKG_URL}ckconfig.custom.js";
-					 {/if}
-				{else}
-					oCKeditor.Config['CustomConfigurationsPath'] = "{$smarty.const.CKEDITOR_PKG_URL}ckconfig.bitweaver.js";
-				{/if}
-				
+						'{$smarty.const.CKEDITOR_PKG_URL}ckconfig.bitweaver.js'
+					{/if}
+					{rdelim} );
 				{if !$gBitSystem->isFeatureActive('ckedit_toolbars')}
-					oCKeditor.ToolbarSet = "Basic";
+					oCKeditor.config.toolbar = "Basic";
 				{else}
-					oCKeditor.ToolbarSet = "{$gBitSystem->getConfig('ckedit_toolbars')}";
+					oCKeditor.config.toolbar = "{$gBitSystem->getConfig('ckedit_toolbars')}";
 				{/if}
 				{if $gBitSystem->isFeatureActive('ckedit_skin')}
-					oCKeditor.Config['SkinPath'] = oCKeditor.BasePath + 'editor/skins/{$gBitSystem->getConfig('ckedit_skin')}/';
+					oCKeditor.config.skin = "{$gBitSystem->getConfig('ckedit_skin')}";
 				{/if}
 				{if $gBitSystem->isFeatureActive('ckedit_debug')}
-					oCKeditor.Config['Debug'] = 1;
+					oCKeditor.config.debug = 1;
 				{/if}
-				oCKeditor.ReplaceTextarea();
 				BitCK.instances.push(oCKeditor);
 			{rdelim};
 
@@ -45,19 +41,7 @@
 				var n = BitCK.instances.length - 1;  
 				while( n > -1 ){ldelim}
 					var ck = BitCK.instances.pop();
-					var api = CKeditorAPI.GetInstance( ck.InstanceName );
-					{* copy text to original textarea *}
-					api.UpdateLinkedField();
-					{* remove editor *}
-					a = document.getElementById( ck.InstanceName + '___Config' );
-					b = document.getElementById( ck.InstanceName + '___Frame' );
-					a.parentNode.removeChild( a );
-					b.parentNode.removeChild( b );
-					{* display original textarea *}
-					BitBase.setElementDisplay( api.LinkedField, 'block' );
-					{* destroy the instance *}
-					delete api;
-					delete ck;
+					ck.destroy();
 					n--;
 				{rdelim}
 			{rdelim};
@@ -133,4 +117,4 @@
 			{/if}
 		/*]]>*/</script>
 {/if}
-{/strip}
+{*/strip*}

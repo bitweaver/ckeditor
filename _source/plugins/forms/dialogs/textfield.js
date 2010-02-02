@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 CKEDITOR.dialog.add( 'textfield', function( editor )
@@ -179,7 +179,7 @@ CKEDITOR.dialog.add( 'textfield', function( editor )
 									element.copyAttributes( replace, { type : 1 } );
 									replace.replace( element );
 									editor.getSelection().selectElement( replace );
-									data.element = element;
+									data.element = replace;
 								}
 							}
 							else
