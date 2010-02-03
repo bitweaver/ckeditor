@@ -1,5 +1,5 @@
-{* $Header: /cvsroot/bitweaver/_ckeditor/templates/header_inc.tpl,v 1.2 2010/02/02 17:54:17 dansut Exp $ *}
-{*strip*}
+{* $Header: /cvsroot/bitweaver/_ckeditor/templates/header_inc.tpl,v 1.3 2010/02/03 20:39:16 dansut Exp $ *}
+{strip}
 {if $gBitUser->hasPermission( 'p_liberty_enter_html' ) && ( $gContent || $gComment ) && $gLibertySystem->mPlugins.bithtml && $gBitSystem->isPackageActive('ckeditor')}
 {if ( $post_comment_request || $post_comment_preview || $comments_ajax ) && $gComment}
 	{assign var=contentObject value=$gComment}
@@ -117,4 +117,4 @@
 			{/if}
 		/*]]>*/</script>
 {/if}
-{*/strip*}
+{/strip}
