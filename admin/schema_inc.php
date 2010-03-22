@@ -8,8 +8,8 @@ $gBitInstaller->registerPackageInfo( CKEDITOR_PKG_NAME, array(
 ) );
 
 $gBitInstaller->registerPreferences( CKEDITOR_PKG_NAME, array(
-	array(CKEDITOR_PKG_NAME,'ckeditor_debug','n'),
-	array(CKEDITOR_PKG_NAME,'ckeditor_toolbars', 'Bitweaver'),
+	array(CKEDITOR_PKG_NAME,'ckedit_debug','n'),
+	array(CKEDITOR_PKG_NAME,'ckedit_toolbars', 'Basic'),
 ) );
 
 ?>

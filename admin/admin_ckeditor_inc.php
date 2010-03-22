@@ -31,7 +31,7 @@ $formToolbars = array( 'ckedit_toolbars' => array(
 );
 
 $gBitSmarty->assign( 'formToolbars', $formToolbars );
-$gBitSmarty->assign( 'formToolbarChoices', array('Basic', 'Beginner', 'Intermediate', 'Advanced', 'Supported', 'All'));
+$gBitSmarty->assign( 'formToolbarChoices', array('Basic', 'Beginner', 'Intermediate', 'Advanced', 'Supported', 'Full'));
 
 
 // Skin 

@@ -5,74 +5,57 @@ CKEDITOR.editorConfig = function( config ) {
 /* Start of BITWEAVER toolbar sets */
 config.toolbar_Supported = [
 	['Source','-','Preview'],
-	['Cut','Copy','Paste','PasteText','PasteWord','-','Print','SpellCheck'],
+	['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print','SpellChecker'],
 	['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
 	'/',
 	['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
-	['OrderedList','UnorderedList','-','Outdent','Indent'],
-	['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],
+	['NumberedList','BulletedList','-','Outdent','Indent'],
+	['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
 	['Link','Unlink','Anchor'],
-	['Table','Rule','Smiley','SpecialChar','PageBreak'],
+	['Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
 	'/',
-	['Style','FontFormat','FontName','FontSize'],
+	['Styles','Format','Font','FontSize'],
 	['TextColor','BGColor'],
-	['FitWindow','-','About']
+	['Maximise','ShowBlocks','-','About']
 ];
 
 config.toolbar_Beginner = [
 	['Bold','Italic','Underline'],
-	['OrderedList','UnorderedList'],
+	['NumberedList','BulletedList'],
 	['Link','Unlink','Anchor'],
-	['Table','Rule','Smiley','SpecialChar','PageBreak'],
-	['FitWindow','-','About']
+	['Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
+	['Maximise','-','About']
 ];
 
 config.toolbar_Intermediate = [
-	['Cut','Copy','Paste','PasteText','PasteWord'],
+	['Cut','Copy','Paste','PasteText','PasteFromWord'],
 	['Undo','Redo','-','Find','Replace','-','SelectAll'],
 	'/',
 	['Bold','Italic','Underline'],
-	['OrderedList','UnorderedList','-','Outdent','Indent'],
-	['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],
+	['NumberedList','BulletedList','-','Outdent','Indent'],
+	['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
 	['Link','Unlink','Anchor'],
-	['Table','Rule','Smiley','SpecialChar','PageBreak'],
+	['Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
 	'/',
 	['TextColor','BGColor'],
-	['FitWindow','-','About']
+	['Maximise','-','About']
 ];
 
 config.toolbar_Advanced = [
 	['Source','-','Preview'],
-	['Cut','Copy','Paste','PasteText','PasteWord'],
+	['Cut','Copy','Paste','PasteText','PasteFromWord'],
 	['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
 	'/',
 	['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
-	['OrderedList','UnorderedList','-','Outdent','Indent'],
-	['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],
+	['NumberedList','BulletedList','-','Outdent','Indent'],
+	['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
 	['Link','Unlink','Anchor'],
-	['Table','Rule','Smiley','SpecialChar','PageBreak'],
+	['Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
 	'/',
-	['Style','FontFormat','FontName','FontSize'],
+	['Styles','Format','Font','FontSize'],
 	['TextColor','BGColor'],
-	['FitWindow','-','About']
+	['Maximise','ShowBlocks','-','About']
 ];
-
-config.toolbar_All = [
-	['Source','DocProps','-','Save','NewPage','Preview','-','Templates'],
-	['Cut','Copy','Paste','PasteText','PasteWord','-','Print','SpellCheck'],
-	['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
-	['Form','Checkbox','Radio','TextField','Textarea','Select','Button','ImageButton','HiddenField'],
-	'/',
-	['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
-	['OrderedList','UnorderedList','-','Outdent','Indent'],
-	['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],
-	['Link','Unlink','Anchor'],
-	['Image','Flash','Table','Rule','Smiley','SpecialChar','PageBreak'],
-	'/',
-	['Style','FontFormat','FontName','FontSize'],
-	['TextColor','BGColor'],
-	['FitWindow','-','About']
-] ;
 
 // to add split plugin add this to array of tools in your selected ToolbarSet
 //	['Split']
