@@ -45,6 +45,7 @@ config.toolbar_Advanced = [
 	['Source','-','Preview'],
 	['Cut','Copy','Paste','PasteText','PasteFromWord'],
 	['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+	['SpellCheck'],
 	'/',
 	['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
 	['NumberedList','BulletedList','-','Outdent','Indent'],
