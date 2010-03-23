@@ -227,7 +227,7 @@ CKEDITOR.config =
 	 * @example
 	 * config.extraPlugins = 'myplugin,anotherplugin';
 	 */
-	extraPlugins : '',
+	extraPlugins : 'aspell',
 
 	/**
 	 * List of plugins that must not be loaded. This is a tool setting which
