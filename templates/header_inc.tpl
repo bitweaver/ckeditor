@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_ckeditor/templates/header_inc.tpl,v 1.3 2010/02/03 20:39:16 dansut Exp $ *}
+{* $Header$ *}
 {strip}
 {if $gBitUser->hasPermission( 'p_liberty_enter_html' ) && ( $gContent || $gComment ) && $gLibertySystem->mPlugins.bithtml && $gBitSystem->isPackageActive('ckeditor')}
 {if ( $post_comment_request || $post_comment_preview || $comments_ajax ) && $gComment}
