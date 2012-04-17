@@ -66,7 +66,7 @@ config.toolbar_Advanced = [
 /* END of BITWEAVER toolbar sets */
 
 //Enable additional plugins from the bw library of addons
-config.extraPlugins = 'split';
+//config.extraPlugins = 'split';
 
 // Lock resize function to bitweaver window.
 config.resize_minHeight = 300;	
