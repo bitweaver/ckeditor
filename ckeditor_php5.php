@@ -498,10 +498,10 @@ class CKEditor
 
 		/**
 		 * The filename of the currently executing script, relative to the document root.
-		 * For instance, $_SERVER['PHP_SELF'] in a script at the address http://example.com/test.php/foo.bar
+		 * For instance, $_SERVER['SCRIPT_NAME'] in a script at the address http://example.com/test.php/foo.bar
 		 * would be /test.php/foo.bar.
 		 */
-		$selfPath = dirname($_SERVER['PHP_SELF']);
+		$selfPath = dirname($_SERVER['SCRIPT_NAME']);
 		$file = str_replace("\\", "/", __FILE__);
 
 		if (!$selfPath || !$realPath || !$file) {
