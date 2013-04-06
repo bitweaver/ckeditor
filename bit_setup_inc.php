@@ -1,5 +1,5 @@
 <?php
-global $gBitSystem, $gBitSmarty, $gBitThemes;
+global $gBitSystem, $gBitThemes;
 
 $registerHash = array(
 	'package_name' => 'ckeditor',
@@ -7,9 +7,6 @@ $registerHash = array(
 );
 
 $gBitSystem->registerPackage( $registerHash );
-
-// Add our plugin directory.
-$gBitSmarty->plugins_dir[] = $registerHash['package_path']."smarty";
 
 if( $gBitSystem->isPackageActive( 'ckeditor' ) && $gBitUser->hasPermission( 'p_liberty_enter_html' ) ){
 	if( defined( 'IS_LIVE' ) && IS_LIVE ) {
