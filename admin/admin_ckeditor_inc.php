@@ -31,10 +31,10 @@ $formToolbars = array( 'ckedit_toolbars' => array(
 );
 
 $gBitSmarty->assign( 'formToolbars', $formToolbars );
-$gBitSmarty->assign( 'formToolbarChoices', array('Basic', 'Beginner', 'Intermediate', 'Advanced', 'Supported', 'Full'));
+$gBitSmarty->assign( 'formToolbarChoices', array('Basic', 'Intermediate', 'Advanced', 'Full'));
 
 
-// Skin 
+// Skin
 
 $formSkin = array( 'ckedit_skin' => array(
 		'label' => 'Skin',
@@ -42,7 +42,7 @@ $formSkin = array( 'ckedit_skin' => array(
 		)
 );
 $gBitSmarty->assign( 'formSkin', $formSkin );
-$gBitSmarty->assign( 'formSkinChoices', array('kama', 'office2003', 'v2'));
+$gBitSmarty->assign( 'formSkinChoices', array('bw_basic', 'moono', 'kama', 'office2003', 'v2'));
 
 
 if( !empty( $_REQUEST['change_prefs'] ) ) {
