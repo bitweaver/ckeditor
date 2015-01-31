@@ -7,7 +7,7 @@ function createCkEditor( pTextAreaId ) {
 		$('#'+pTextAreaId).attr("contenteditable", true);
 		//var config = {};
 		//editor = CKEDITOR.appendTo( pTextAreaId, config, $('#'+pTextAreaId).html() );
-		CKEDITOR.replace( '{/literal}{$smarty.const.LIBERTY_TEXT_AREA}{literal}' );
+		CKEDITOR.replace( pTextAreaId );
 	}
 }
 
