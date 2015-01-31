@@ -42,7 +42,13 @@ $formSkin = array( 'ckedit_skin' => array(
 		)
 );
 $gBitSmarty->assign( 'formSkin', $formSkin );
-$gBitSmarty->assign( 'formSkinChoices', array('bw_basic', 'moono', 'kama', 'office2003', 'v2'));
+$skins = array_flip( scandir( CKEDITOR_PKG_PATH.'ckeditor/skins/' ) );
+foreach( array( '.', '..' ) as $dir ) {
+	if( isset( $skins[$dir] ) ) {
+		unset( $skins[$dir] );
+	}
+}
+$gBitSmarty->assign( 'formSkinChoices', array_keys( $skins ) );
 
 
 if( !empty( $_REQUEST['change_prefs'] ) ) {

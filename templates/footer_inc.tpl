@@ -1,5 +1,5 @@
 {strip}
-{if $wysiwygEdit = 'true'}
+{if $wysiwygEdit == 'true'}
 	<script>
     	CKEDITOR.replace( '{$smarty.const.LIBERTY_TEXT_AREA}', {
 			toolbarGroups: [
