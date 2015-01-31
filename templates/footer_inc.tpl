@@ -1,66 +1,88 @@
-{strip}
-{if $wysiwygEdit == 'true'}
-	<script>
-    	CKEDITOR.replace( '{$smarty.const.LIBERTY_TEXT_AREA}', {
-			toolbarGroups: [
-			{if $gBitSystem->getConfig('ckedit_toolbars') eq 'Full'}
-				{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-				{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-				{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ] },
-				{ name: 'forms' },
-				{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-				{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align' ] },
-				{ name: 'links' },
-				{ name: 'insert' },
-				{ name: 'styles' },
-				{ name: 'colors' },
-				{ name: 'tools' },
-				{ name: 'others' },
-				{ name: 'about' }
-			{elseif $gBitSystem->getConfig('ckedit_toolbars') eq 'Advanced'}
-				{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-				{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-				{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ] },
-				{ name: 'forms' },
-				'/',
-				{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-				{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align' ] },
-				'/',
-				{ name: 'links' },
-				{ name: 'insert' },
-				'/',
-				{ name: 'styles' },
-				{ name: 'colors' },
-				{ name: 'tools' },
-				{ name: 'others' },
-				{ name: 'about' }
-			{elseif $gBitSystem->getConfig('ckedit_toolbars') eq 'Intermediate'}
-				{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-				{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ] },
-				{ name: 'forms' },
-				'/',
-				{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-				'/',
-				{ name: 'links' },
-				{ name: 'insert' },
-				'/',
-				{ name: 'styles' },
-				{ name: 'colors' },
-				{ name: 'tools' },
-				{ name: 'others' },
-				{ name: 'about' }
-			{else}
-			 	{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
-			 	{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-			 	{ name: 'links' }
-			{/if}
-			]
-		});
-	</script>
+{if $gBitSystem->isPackageActive('ckeditor')}
 
-	{* if ($gBitSystem->isFeatureActive("ckeditor_ask") || 
-		$gBitSystem->isFeatureActive("ckeditor_on_click"))}
-		{formhelp note="Click in the textarea to activate the editor."}
-	{/if *}
-	{/if}
-{/strip}
+<script type="text/javascript">
+{literal}
+function createCkEditor( pTextAreaId ) {
+	if( !CKEDITOR.instances[pTextAreaId] ){
+		$('#'+pTextAreaId).attr("contenteditable", true);
+		//var config = {};
+		//editor = CKEDITOR.appendTo( pTextAreaId, config, $('#'+pTextAreaId).html() );
+		CKEDITOR.replace( '{/literal}{$smarty.const.LIBERTY_TEXT_AREA}{literal}' );
+	}
+}
+
+function destroyCkEditor( pTextAreaId ) {
+	$('#'+pTextAreaId).attr("contenteditable", true);
+	if( CKEDITOR.instances[pTextAreaId] ){
+		CKEDITOR.instances[pTextAreaId].destroy();
+
+		// Retrieve the editor contents. In an Ajax application, this data would be
+		// sent to the server or used in any other way.
+		$('#'+pTextAreaId).innerHTML = html = CKEDITOR.instances[pTextAreaId].getData();
+
+		// Destroy the editor.
+		CKEDITOR.instances[pTextAreaId].destroy();
+		CKEDITOR.instances[pTextAreaId] = null;
+	}
+}
+
+$(document).ready(function() {
+	CKEDITOR.config.toolbarGroups = [
+	{/literal}{if $gBitSystem->getConfig('ckedit_toolbars') eq 'Full'}{literal}
+		{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+		{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+		{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ] },
+		{ name: 'forms' },
+		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+		{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align' ] },
+		{ name: 'links' },
+		{ name: 'insert' },
+		{ name: 'styles' },
+		{ name: 'colors' },
+		{ name: 'tools' },
+		{ name: 'others' },
+		{ name: 'about' }
+	{/literal}{elseif $gBitSystem->getConfig('ckedit_toolbars') eq 'Advanced'}{literal}
+		{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+		{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+		{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ] },
+		{ name: 'forms' },
+		'/',
+		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+		{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align' ] },
+		'/',
+		{ name: 'links' },
+		{ name: 'insert' },
+		'/',
+		{ name: 'styles' },
+		{ name: 'colors' },
+		{ name: 'tools' },
+		{ name: 'others' },
+		{ name: 'about' }
+	{/literal}{elseif $gBitSystem->getConfig('ckedit_toolbars') eq 'Intermediate'}{literal}
+		{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+		{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ] },
+		{ name: 'forms' },
+		'/',
+		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+		'/',
+		{ name: 'links' },
+		{ name: 'insert' },
+		'/',
+		{ name: 'styles' },
+		{ name: 'colors' },
+		{ name: 'tools' },
+		{ name: 'others' },
+		{ name: 'about' }
+	{/literal}{else}{literal}
+		{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+		{ name: 'links' }
+	{/literal}{/if}{literal}
+];
+});
+{/literal}
+</script>
+{/if}
+
+
