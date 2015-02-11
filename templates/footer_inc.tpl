@@ -3,6 +3,7 @@
 <script type="text/javascript">
 {literal}
 function createCkEditor( pTextAreaId ) {
+	configCkEditor();
 	if( !CKEDITOR.instances[pTextAreaId] ){
 		$('#'+pTextAreaId).attr("contenteditable", true);
 		//var config = {};
@@ -26,7 +27,7 @@ function destroyCkEditor( pTextAreaId ) {
 	}
 }
 
-$(document).ready(function() {
+function configCkEditor() {
 	CKEDITOR.config.toolbarGroups = [
 	{/literal}{if $gBitSystem->getConfig('ckedit_toolbars') eq 'Full'}{literal}
 		{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
@@ -80,7 +81,7 @@ $(document).ready(function() {
 		{ name: 'links' }
 	{/literal}{/if}{literal}
 ];
-});
+}
 {/literal}
 </script>
 {/if}
