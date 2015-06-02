@@ -81,6 +81,7 @@ function configCkEditor() {
 		{ name: 'links' }
 	{/literal}{/if}{literal}
 ];
+	CKEDITOR.config.autoParagraph = false;
 }
 {/literal}
 </script>

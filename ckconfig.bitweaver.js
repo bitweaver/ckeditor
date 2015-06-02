@@ -71,5 +71,6 @@ config.toolbar_Advanced = [
 // Lock resize function to bitweaver window.
 config.resize_minHeight = 300;	
 config.resize_dir = 'vertical';
-
+config.autoParagraph = false;
+	enterMode: CKEDITOR.ENTER_P,
 }; // End CKEDITOR.editorConfig function

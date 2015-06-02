@@ -73,5 +73,6 @@ CKEDITOR.editorConfig = function( config ) {
 	// Lock resize function to bitweaver window.
 	config.resize_minHeight = 300;
 	config.resize_dir = 'vertical';
+	config.autoParagraph = false;
 
 }; // End CKEDITOR.editorConfig function
