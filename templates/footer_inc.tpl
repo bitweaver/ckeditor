@@ -1,6 +1,6 @@
 {if $gBitSystem->isPackageActive('ckeditor')}
 
-<script type="text/javascript">
+<script>
 {literal}
 function createCkEditor( pTextAreaId ) {
 	configCkEditor();
