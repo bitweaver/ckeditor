@@ -3,7 +3,7 @@
 CKEDITOR.editorConfig = function( config ) {
 
 	//Disable core plugins not required
-	config.removePlugins = 'scayt';
+	config.removePlugins = 'scayt,flash';
 
 	//Enable additional plugins from the bw library of addons
 	config.extraPlugins = 'aspell';

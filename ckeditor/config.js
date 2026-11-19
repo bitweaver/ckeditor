@@ -4,6 +4,9 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
+	// The Flash plugin is compiled into this build; its dialog files are
+	// removed, so keep it switched off.
+	config.removePlugins = 'flash';
 	// Define changes to default configuration here. For example:
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';

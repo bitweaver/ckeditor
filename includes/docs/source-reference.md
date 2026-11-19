@@ -7,10 +7,10 @@
 
 | Artifact | Count |
 |---|---:|
-| PHP files | 7 |
+| PHP files | 5 |
 | Smarty templates | 3 |
-| JavaScript files | 214 |
-| CSS files | 17 |
+| JavaScript files | 209 |
+| CSS files | 15 |
 
 ## Bootstrap and schema artifacts
 
@@ -25,8 +25,6 @@ No first-party PHP class declaration was found.
 
 - `admin/admin_ckeditor_inc.php`
 - `admin/schema_inc.php`
-- `ckeditor/samples/assets/posteddata.php`
-- `ckeditor/samples/sample_posteddata.php`
 - `index.php`
 - `smarty/block.ckeditor.php`
 
@@ -37,7 +35,11 @@ No table declaration was mechanically identified. Inspect schema files and runti
 ## Plugin and module directories
 
 - `ckeditor/plugins/`
-- `ckeditor/samples/plugins/`
+
+The upstream `samples/` tree (with two PHP echo scripts) and the Flash
+plugin's dialog files are not shipped; `ckeditor/config.js` and
+`ckconfig.custom.js` set `removePlugins` to include `flash`, which is compiled
+into this build.
 
 ## Templates
 
